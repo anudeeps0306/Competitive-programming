@@ -1,0 +1,1 @@
+{"name":"Local: Alternative_p_s","url":"c:\\Contest\\Cses\\Alternative_p_s.cpp","tests":[{"id":1661611648346,"input":"1\n10\n-5 -2 5 2 4 7 1 8 0 -8","output":"5 -5 2 -2 4 -8 7 1 8 0"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Contest\\Cses\\Alternative_p_s.cpp","group":"local","local":true}
