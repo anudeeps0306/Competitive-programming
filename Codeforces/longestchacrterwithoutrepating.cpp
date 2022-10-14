@@ -3,30 +3,40 @@
 using namespace std;
 
 int  lengthOfLongestSubstring(string s) {
-        map<int,int> v;
-        int current=0,ans=0;
-        int i=0;
-        for(auto it : s){
-            if(v[it-'a']!=0){
-                ans=max(current,ans);
-                current=0;
-                v.clear();
-                v[it-'a']++;
-                current++;
-            }
-            else{
-                v[it-'a']++;
-                current++;
-                ans=max(current,ans);
-            }
-            i++;
-        }
-        return ans;
+    // int left =0,right=0,longest=0;
+    // map<char,int> m;
+    // while(right<s.size()){
+    //     if(m[s[right]] == 0){
+    //         m[s[right]]++;
+    //         longest = max(longest,right-left+1);
+    //         right++;
+    //     }
+    //     else{
+    //         m[s[left]]--;
+    //         left++;
+    //     }
+    // }
+    // return longest;
+    return 0;
 }
+
+int findComplement(int num) {
+        int ans=1;
+        while(ans < num){
+            ans <<= 1;
+            ans += 1;
+        }
+        ans = ans-num;
+    return ans;
+}
+
 
 int main(){
     string s;
     cin>>s;
-    cout<<lengthOfLongestSubstring(s);
+    int n;
+    cin>>n;
+    // cout<<lengthOfLongestSubstring(s);
+    cout<<findComplement(n);
     return 0;
 }
