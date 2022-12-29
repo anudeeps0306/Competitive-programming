@@ -22,12 +22,10 @@ int lcm(int a, int b){
 }
  
 void solve(){
-    int a[3];
-    cin>>a[0]>>a[1]>>a[2];
-    sort(a,a+3);
-    if(a[2] == a[0]+a[1]) cout<<"YES";
-    else cout<<"NO";
-    cout<<endl;
+   int n;
+   cin>>n;
+   int l = (n-3)/3;
+   cout<<l-1<<endl;
 }
  
 int32_t main(){

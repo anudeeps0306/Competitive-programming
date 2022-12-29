@@ -21,43 +21,34 @@ typedef vector<vi> vvi;
 int lcm(int a, int b){
     return (a / __gcd(a, b)) * b;
 }
+
+
  
 void solve(){
     int n;
+    string s;
     cin>>n;
     int a[n];
-    for(int i=0;i<n;i++) cin>>a[i];
-    int g1=a[0];
-    int g2=a[1];
     for(int i=0;i<n;i++){
-        if(i%2==0){
-            g1 = __gcd(g1,a[i]);
-        }
-        else{
-            g2 = __gcd(g2,a[i]);
-        }
+        cin>>a[i];
     }
-    // cout<<g1<<" "<<g2<<endl;
-    bool flag1=true,flag2=true;
+    cin>>s;
+    
+    map<int,char> m;
+
+    bool flag=true;
     for(int i=0;i<n;i++){
-        // cout<<i<<endl;
-        if(i%2==0){
-            // cout<<a[i]<<"/"<<endl;
-            if(a[i]%g2==0){
-                flag2=false;
+        if(m[a[i]]!=s[i]){
+            if(m[a[i]]=='\0'){
+                m[a[i]]=s[i];
             }
-        }
-        else{
-            // cout<<a[i]<<g1<<"/"<<endl;
-            if(a[i]%g1==0){
-                flag1=false;
+            else{
+                flag=false;
             }
         }
     }
-    // cout<<flag1<<" "<<flag2<<endl;
-    if(flag1 == true) cout<<g1;
-    else if(flag2 == true) cout<<g2;
-    else cout<<0;
+    if(flag) cout<<"YES";
+    else cout<<"NO";
     cout<<endl;
 }
  

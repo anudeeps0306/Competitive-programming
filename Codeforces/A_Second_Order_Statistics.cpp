@@ -21,59 +21,55 @@ typedef vector<vi> vvi;
 int lcm(int a, int b){
     return (a / __gcd(a, b)) * b;
 }
- 
+
+bool equals(int a[], int b[], int n){
+    int dif = INT_MAX;
+    for(int i = 0; i < n; i++){
+        if(b[i] != 0) dif = min(dif, a[i] - b[i]);
+    }
+    if(dif < 0) return false; 
+    if(dif == INT_MAX) return true;
+    for(int i = 0; i < n; i++){
+        if(a[i] - b[i] > dif) return false;
+        if(b[i] != 0 && a[i] - b[i] < dif) return false;
+    }
+    return true;
+}
+
+
 void solve(){
-    int n;
+    int n,input;
     cin>>n;
-    int a[n];
-    for(int i=0;i<n;i++) cin>>a[i];
-    int g1=a[0];
-    int g2=a[1];
+    map<int,int> m;
     for(int i=0;i<n;i++){
-        if(i%2==0){
-            g1 = __gcd(g1,a[i]);
-        }
-        else{
-            g2 = __gcd(g2,a[i]);
-        }
+        cin>>input;
+        m[input]++;
     }
-    // cout<<g1<<" "<<g2<<endl;
-    bool flag1=true,flag2=true;
-    for(int i=0;i<n;i++){
-        // cout<<i<<endl;
-        if(i%2==0){
-            // cout<<a[i]<<"/"<<endl;
-            if(a[i]%g2==0){
-                flag2=false;
-            }
+    int i=0;
+    for(auto it : m){
+        if(i==1){
+            cout<<it.first<<endl;
+            return;
         }
-        else{
-            // cout<<a[i]<<g1<<"/"<<endl;
-            if(a[i]%g1==0){
-                flag1=false;
-            }
-        }
+        i++;
     }
-    // cout<<flag1<<" "<<flag2<<endl;
-    if(flag1 == true) cout<<g1;
-    else if(flag2 == true) cout<<g2;
-    else cout<<0;
-    cout<<endl;
+    cout<<"NO"<<endl;
 }
  
 int32_t main(){
  
     fastIO;
     auto start = std::chrono::high_resolution_clock::now();
- 
-    int t;
-    cin>>t;
-    while(t--) solve();
+
+    // int t;
+    // cin>>t;
+    // while(t--)
+    solve();
  
     auto stop = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
-    #ifndef ONLINE_JUDGE
-        cerr << "Time taken : " << ((long double)duration.count())/((long double) 1e9) <<"s"<< endl;
-    #endif
+    // #ifndef ONLINE_JUDGE
+    //     cerr << "Time taken : " << ((long double)duration.count())/((long double) 1e9) <<"s"<< endl;
+    // #endif
     return 0;
 }

@@ -1,14 +1,15 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define fastIO          {ios_base ::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);}
-#define int             long long
 #define mod             1000000007
 #define PI              3.1415926535897932384626
 #define endl            "\n"
 #define YES             cout << "YES" << "\n"
 #define NO              cout << "NO" << "\n"
+#define ispowoftwo(n)   (!(n & (n-1)))
 #define pb              push_back
 #define ppb             pop_back
+#define ll              long long
  
 typedef pair<int,int> pii;
 typedef vector<int> vi;
@@ -20,15 +21,37 @@ typedef vector<vi> vvi;
 int lcm(int a, int b){
     return (a / __gcd(a, b)) * b;
 }
+
+bool clean(string s){
+    bool flag = false;
+
+    for(int i=0;i<s.length()-1;i++){
+        if(s[i]=='A' && s[i+1]=='B'){
+            flag=true;
+        }
+        else if(s[i]=='B' && s[i+1]=='B'){
+            flag=true;
+        }
+    }
+    return flag;
+}
  
 void solve(){
-    int a[3];
-    cin>>a[0]>>a[1]>>a[2];
-    sort(a,a+3);
-    if(a[2] == a[0]+a[1]) cout<<"YES";
-    else cout<<"NO";
+    ll n;
+    string s;
+    cin >> n >> s;
+    ll x=0,f=1;
+    for(int i=n-1;i>=0;i--){
+      if(s[i]=='Q') x--;
+      else x++;
+      if(x<0) f=0;
+    }
+    if(f) cout<<"Yes";
+    else cout<<"No";
     cout<<endl;
+
 }
+
  
 int32_t main(){
  
@@ -37,7 +60,8 @@ int32_t main(){
  
     int t;
     cin>>t;
-    while(t--) solve();
+    while(t--) 
+    solve();
  
     auto stop = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);

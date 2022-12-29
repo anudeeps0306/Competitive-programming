@@ -1,3 +1,4 @@
+
 #include <bits/stdc++.h>
 using namespace std;
 #define fastIO          {ios_base ::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);}
@@ -7,6 +8,7 @@ using namespace std;
 #define endl            "\n"
 #define YES             cout << "YES" << "\n"
 #define NO              cout << "NO" << "\n"
+#define ispowoftwo(n)   (!(n & (n-1)))
 #define pb              push_back
 #define ppb             pop_back
  
@@ -20,24 +22,60 @@ typedef vector<vi> vvi;
 int lcm(int a, int b){
     return (a / __gcd(a, b)) * b;
 }
- 
+
+bool equals(int a[], int b[], int n){
+    int dif = INT_MAX;
+    for(int i = 0; i < n; i++){
+        if(b[i] != 0) dif = min(dif, a[i] - b[i]);
+    }
+    if(dif < 0) return false; 
+    if(dif == INT_MAX) return true;
+    for(int i = 0; i < n; i++){
+        if(a[i] - b[i] > dif) return false;
+        if(b[i] != 0 && a[i] - b[i] < dif) return false;
+    }
+    return true;
+}
+#define forn(i, n) for (int i = 0; i < (int)(n); i++)
+
+bool check(char c){
+   if(c>='a' && c<='z') return true;
+    return false;
+}
+
 void solve(){
-    int a[3];
-    cin>>a[0]>>a[1]>>a[2];
-    sort(a,a+3);
-    if(a[2] == a[0]+a[1]) cout<<"YES";
-    else cout<<"NO";
-    cout<<endl;
+   string s;
+    cin>>s;
+    int n = s.length(),count=0;
+    for(int i=0;i<n;i++){
+        if(isupper(s[i])){
+            count++;
+        }
+    }
+    if(2*count>n){
+        for(int i=0;i<n;i++){
+            s[i]=toupper(s[i]);
+        }
+    }
+    else{
+        for(int i=0;i<n;i++){
+            s[i]=tolower(s[i]);
+        }
+    }
+
+    cout<<s<<endl;
+
 }
  
 int32_t main(){
  
     fastIO;
     auto start = std::chrono::high_resolution_clock::now();
- 
-    int t;
-    cin>>t;
-    while(t--) solve();
+
+    // int t;
+    // cin>>t;
+    // while(t--)
+    solve();
  
     auto stop = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);

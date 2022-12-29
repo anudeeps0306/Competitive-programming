@@ -23,41 +23,29 @@ int lcm(int a, int b){
 }
  
 void solve(){
-    int n;
-    cin>>n;
-    int a[n];
-    for(int i=0;i<n;i++) cin>>a[i];
-    int g1=a[0];
-    int g2=a[1];
+    int n,q,input;
+    cin>>n>>q;
+    vector<int> a(n);
+
+   
+
     for(int i=0;i<n;i++){
-        if(i%2==0){
-            g1 = __gcd(g1,a[i]);
-        }
-        else{
-            g2 = __gcd(g2,a[i]);
-        }
+       cin>>a[i];
     }
-    // cout<<g1<<" "<<g2<<endl;
-    bool flag1=true,flag2=true;
-    for(int i=0;i<n;i++){
-        // cout<<i<<endl;
-        if(i%2==0){
-            // cout<<a[i]<<"/"<<endl;
-            if(a[i]%g2==0){
-                flag2=false;
-            }
-        }
-        else{
-            // cout<<a[i]<<g1<<"/"<<endl;
-            if(a[i]%g1==0){
-                flag1=false;
-            }
-        }
+    // int p;
+    // p=find(a.begin(),a.end(),2)-a.begin();
+    // cout<<find(a.begin(),a.end(),2)-a.begin();
+    // rotate(a.begin(),a.begin()+p,a.end());
+    // cout<<find(a.begin(),a.end(),2)-a.begin();
+
+
+    while(q--){
+        int input;
+        cin>>input;
+        int p = find(a.begin(),a.end(),input)-a.begin();
+        cout<<p+1<<" ";
+        rotate(a.begin(),a.begin()+p,a.begin()+p+1);
     }
-    // cout<<flag1<<" "<<flag2<<endl;
-    if(flag1 == true) cout<<g1;
-    else if(flag2 == true) cout<<g2;
-    else cout<<0;
     cout<<endl;
 }
  
@@ -66,14 +54,15 @@ int32_t main(){
     fastIO;
     auto start = std::chrono::high_resolution_clock::now();
  
-    int t;
-    cin>>t;
-    while(t--) solve();
+    // int t;
+    // cin>>t;
+    // while(t--) 
+    solve();
  
     auto stop = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
-    #ifndef ONLINE_JUDGE
-        cerr << "Time taken : " << ((long double)duration.count())/((long double) 1e9) <<"s"<< endl;
-    #endif
+    // #ifndef ONLINE_JUDGE
+    //     cerr << "Time taken : " << ((long double)duration.count())/((long double) 1e9) <<"s"<< endl;
+    // #endif
     return 0;
 }
