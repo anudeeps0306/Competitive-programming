@@ -37,8 +37,34 @@ bool clean(string s){
 }
 
 
+int check( int i , vector<int> ans){
+    for(auto it : ans){
+        if(it%i != 0){
+            return -1;
+        }
+    }
 
- 
+    if(i==1) return 2;
+
+    for(int j=2;j<i;j++){
+        if(i%j != 0){
+            return j;
+        }
+    }
+
+    return i+1;
+}
+
+string v[200];
+
+
+void solve(){
+    int sum = 0;
+    for(int i=0;i<15.778*1e8;i++){
+        sum += 1;
+    }
+}
+
 
 
  
@@ -47,17 +73,15 @@ int32_t main(){
     fastIO;
     auto start = std::chrono::high_resolution_clock::now();
  
-    int n;
-    cin>>n;
-
-    if(n%3==0) cout<<"Yes";
-    else cout<<"No";
-    cout<<endl;
+    int t;
+    cin>>t;
+    while(t--) solve();
  
     auto stop = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
-    // #ifndef ONLINE_JUDGE
-    //     cerr << "Time taken : " << ((long double)duration.count())/((long double) 1e9) <<"s"<< endl;
-    // #endif
+    #ifndef ONLINE_JUDGE
+        cerr << "Time taken : " << ((long double)duration.count())/((long double) 1e9) <<"s"<< endl;
+    #endif
     return 0;
 }
+

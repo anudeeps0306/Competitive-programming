@@ -1,0 +1,1 @@
+{"name":"Local: q2","url":"c:\\Contest\\Dp\\q2.cpp","tests":[{"id":1684315423029,"input":"chchokudai\n","output":"3"},{"id":1684315800274,"input":"chokudaichokudaichokudai","output":"45"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Contest\\Dp\\q2.cpp","group":"local","local":true}

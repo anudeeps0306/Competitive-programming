@@ -1,3 +1,5 @@
-a=2147483647
-b=2147483647
-print(a+b)
+n=int(input())
+
+for i in range(0,n+1):
+    print(i,end="")
+    print(end="\n")

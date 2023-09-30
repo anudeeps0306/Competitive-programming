@@ -61,7 +61,6 @@ char get(int i) {
 
 const int INF = 1e9 + 5; 
 void solve(){
- 
     int n;
     cin >> n;
    for(int i=n;i>=0;i--){

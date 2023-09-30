@@ -1,0 +1,74 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int long long
+
+class segmentTree {
+    vector<int> st, lazy;
+
+public:
+    segmentTree(int n) {
+        st.resize(4 * n); // Initialize the segment tree array to store values
+        lazy.resize(4 * n); // Initialize the lazy propagation array
+    }
+
+    void build(int ind, int low, int high, int arr[]) {
+        if (low == high) {
+            st[ind] = arr[low]; // Assign value from the array to the leaf node
+            return;
+        }
+        int mid = (low + high) >> 1; // Calculate the middle index
+        build(2 * ind + 1, low, mid, arr); // Build left subtree
+        build(2 * ind + 2, mid + 1, high, arr); // Build right subtree
+        st[ind] = min(st[2 * ind + 1], st[2 * ind + 2]); // Update the current node's value with minimum
+    }
+
+    void propagate(int ind, int low, int high) {
+        if (lazy[ind] != 0) {
+            st[ind] += lazy[ind]; // Update the node value with lazy propagation
+            if (low != high) {
+                lazy[2 * ind + 1] += lazy[ind]; // Propagate to left child
+                lazy[2 * ind + 2] += lazy[ind]; // Propagate to right child
+            }
+            lazy[ind] = 0; // Reset the current node's lazy value
+        }
+    }
+
+    int query(int ind, int low, int high, int l, int r) {
+        propagate(ind, low, high); // Update current node with pending lazy values
+
+        if (high < l || r < low) {
+            return INT_MAX; // No overlap, return a maximum value
+        }
+
+        if (low >= l && high <= r) {
+            return st[ind]; // Node's value contributes to the result
+        }
+
+        int mid = (low + high) >> 1; // Calculate the middle index
+        int left = query(2 * ind + 1, low, mid, l, r); // Query left subtree
+        int right = query(2 * ind + 2, mid + 1, high, l, r); // Query right subtree
+        return min(left, right); // Return the minimum value between left and right subtrees
+    }
+};
+
+int32_t main() {
+    int n, m;
+    cin >> n >> m;
+
+    int arr[n];
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+
+    segmentTree st(n); // Create a segment tree object
+    st.build(0, 0, n - 1, arr); // Build the segment tree using the input array
+
+    while (m--) {
+        int l, r;
+        cin >> l >> r;
+        cout << st.query(0, 0, n - 1, l - 1, r - 1) << endl; // Query the segment tree for the range minimum
+    }
+
+    return 0;
+}

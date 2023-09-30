@@ -15,7 +15,7 @@ typedef pair<int,int> pii;
 typedef vector<int> vi;
 typedef vector<pii> vp;
 typedef vector<vi> vvi;
- 
+
  
  
 int lcm(int a, int b){
@@ -68,11 +68,9 @@ void solve(){
     if(n==1 && m!=1) cout<<m-1;
     else if(n!=1 && m==1) cout<<n-1;
     else cout<<long(m)*(n-1);
+} 
 
 
-}
-
- 
 int32_t main(){
  
     fastIO;

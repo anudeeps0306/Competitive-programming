@@ -55,53 +55,30 @@ int check( int i , vector<int> ans){
     return i+1;
 }
 
+
+
  
-void solve(){
-    int n;
-    char c;
-    cin>>n>>c;
-
-    string s;
-    cin>>s;
-
-    vector<int> ans;
-
-    for(int i=0;i<s.size();i++){
-        if(s[i]!=c){
-            int k = check(i+1,ans);
-            if(k != -1){
-                ans.push_back(k);
-            }
-        }
+vector<int> solve() {
+    int N;
+    char C;
+    string S;
+    cin >> N >> C >> S;
+    if (S == string(N, C)) return {};
+    for (int i = 0; i < N; i++) {
+        bool good = true;
+        for (int j = i; j < N; j += (i + 1)) if (S[j] != C) good = false;
+        if (good) return {i + 1};
     }
-
-    // sort(ans.begin(),ans.end());
-
-    cout<<ans.size()<<endl;
-    if(ans.size() != 0){
-        for(auto it : ans){
-        cout<<it<<" ";
-        }
-        cout<<endl;
+    return {N - 1, N};
+}
+ 
+int32_t main() {
+    int T;
+    cin >> T;
+    while (T--) {
+        auto ret = solve();
+        cout << ret.size() << '\n';
+        for (auto x : ret) cout << x << ' ';
+        cout << '\n';
     }
 }
-
- 
-int32_t main(){
- 
-    fastIO;
-    auto start = std::chrono::high_resolution_clock::now();
- 
-    int t;
-    cin>>t;
-    while(t--) 
-    solve();
- 
-    auto stop = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
-    // #ifndef ONLINE_JUDGE
-    //     cerr << "Time taken : " << ((long double)duration.count())/((long double) 1e9) <<"s"<< endl;
-    // #endif
-    return 0;
-}
-
