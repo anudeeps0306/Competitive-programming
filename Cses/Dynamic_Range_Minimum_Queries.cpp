@@ -20,7 +20,7 @@ public:
         int mid = (low + high) >> 1; // Calculate the middle index
         build(2 * ind + 1, low, mid, arr); // Build left subtree
         build(2 * ind + 2, mid + 1, high, arr); // Build right subtree
-        st[ind] = st[2 * ind + 1] + st[2 * ind + 2]; // Update the current node's value
+        st[ind] = min(st[2 * ind + 1],st[2 * ind + 2]); // Update the current node's value
     }
 
     void propagate(int ind, int low, int high) {
@@ -54,14 +54,14 @@ public:
         update(2 * ind + 1, low, mid, l, r, val); // Update left subtree
         update(2 * ind + 2, mid + 1, high, l, r, val); // Update right subtree
 
-        st[ind] = st[2 * ind + 1] + st[2 * ind + 2]; // Update current node's value
+        st[ind] = min(st[2 * ind + 1],st[2 * ind + 2]); // Update current node's value
     }
 
     int query(int ind, int low, int high, int l, int r) {
         propagate(ind, low, high); // Update current node with pending lazy values
 
         if (high < l || r < low) {
-            return 0; // No overlap, return neutral value
+            return INT_MAX; // No overlap, return neutral value
         }
 
         if (low >= l && high <= r) {
@@ -71,7 +71,7 @@ public:
         int mid = (low + high) >> 1; // Calculate the middle index
         int left = query(2 * ind + 1, low, mid, l, r); // Query left subtree
         int right = query(2 * ind + 2, mid + 1, high, l, r); // Query right subtree
-        return left + right; // Combine the results from left and right subtrees
+        return min(left,right); // Combine the results from left and right subtrees
     }
 };
 

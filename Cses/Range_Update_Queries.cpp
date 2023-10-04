@@ -27,8 +27,8 @@ public:
         if (lazy[ind] != 0) {
             st[ind] += (high - low + 1) * lazy[ind]; // Update the node value with lazy propagation
             if (low != high) {
-                lazy[2 * ind + 1] = lazy[ind]; // Propagate to left child
-                lazy[2 * ind + 2] = lazy[ind]; // Propagate to right child
+                lazy[2 * ind + 1] += lazy[ind]; // Propagate to left child
+                lazy[2 * ind + 2] += lazy[ind]; // Propagate to right child
             }
             lazy[ind] = 0; // Reset the current node's lazy value
         }
@@ -42,10 +42,10 @@ public:
         }
 
         if (low >= l && high <= r) {
-            st[ind] = (high - low + 1) * val; // Update current node within the range
+            st[ind] += (high - low + 1) * val; // Update current node within the range
             if (low != high) {
-                lazy[2 * ind + 1] = val; // Propagate to left child
-                lazy[2 * ind + 2] = val; // Propagate to right child
+                lazy[2 * ind + 1] += val; // Propagate to left child
+                lazy[2 * ind + 2] += val; // Propagate to right child
             }
             return;
         }
@@ -92,13 +92,13 @@ int32_t main() {
         cin >> type;
 
         if (type == 1) {
-            int r, val;
-            cin >> r >> val;
-            st.update(0, 0, n - 1, r - 1, r - 1, val);
+            int a, b, val;
+            cin >> a >> b >> val;
+            st.update(0, 0, n - 1, a - 1, b - 1, val);
         } else {
-            int l, r;
-            cin >> l >> r;
-            cout << st.query(0, 0, n - 1, l - 1, r - 1) << endl;
+            int k;
+            cin >> k;
+            cout << st.query(0, 0, n - 1, k - 1, k - 1) << endl;
         }
     }
 
