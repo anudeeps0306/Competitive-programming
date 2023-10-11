@@ -1,141 +1,155 @@
-#include <iostream>
-#include <vector>
-#include <set>
-#include <algorithm>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-vector<int> a;
+const int mod = 123;
 
-string s = "ri1vf9med50";
+int lcm(int a, int b){
+    return (a / __gcd(a, b)) * b;
+}
 
-bool f(vector<int> v, int target, int pos, int sum, vector<int> &ans)
-{
-    if (target == 0)
-    {
-        a = ans;
-        return true;
-    }
-    if (pos == v.size())
-    {
-        return false;
-    }
-    if (sum >= v.size() / 2)
-    {
-        return false;
-    }
+bool clean(string s){
+    bool flag = false;
 
-    ans.push_back(v[pos]);
-    if (target >= v[pos])
-    {
-        if (f(v, target - v[pos], pos + 1, sum + 1, ans))
-        {
-            return true;
+    for(int i=0;i<s.length()-1;i++){
+        if(s[i]=='A' && s[i+1]=='B'){
+            flag=true;
+        }
+        else if(s[i]=='B' && s[i+1]=='B'){
+            flag=true;
         }
     }
-    ans.pop_back();
+    return flag;
+}
 
-    if (f(v, target, pos + 1, sum, ans))
-    {
-        return true;
+
+int check( int i , vector<int> ans){
+    for(auto it : ans){
+        if(it%i != 0){
+            return -1;
+        }
     }
 
-    return false;
+    if(i==1) return 2;
+
+    for(int j=2;j<i;j++){
+        if(i%j != 0){
+            return j;
+        }
+    }
+
+    return i+1;
+}
+
+char get(int i)
+{
+    return 'a' + i - 1;
+}
+
+const int INF = 1e9 + 7;
+
+int myans(int n)
+{
+    int pow = 1;
+    while (pow <= n)
+    {
+        pow *= 2;
+    }
+    return pow;
+}
+
+int bpow(int base, int exp)
+{
+    int res = 1;
+    while (exp)
+    {
+        if (exp % 2 == 1)
+        {
+            res = (res * base) % mod;
+        }
+        exp >>= 1;
+        base = (base * base) % mod;
+    }
+    return res;
+}
+
+int badd(int a, int b)
+{
+    return (a + b) % mod;
+}
+int bsub(int a, int b)
+{
+    return (((a - b) % mod) + mod) % mod;
+}
+int bmul(int a, int b)
+{
+    return ((a % mod) * (b % mod)) % mod;
+}
+
+int binv(int base)
+{
+    return bpow(base, mod - 2);
+}
+
+int bdiv(int a, int b)
+{
+    return bmul(a, binv(b));
+}
+
+int pow2(int n){
+    int ans = 1;
+    for(int i=0;i<n;i++){
+        ans*=2;
+    }
+    return ans;
+}
+
+void solve(int pos)
+{
+  int n;
+  cin >> n;
+  vector<int> this_is(n);
+  for (int i = 0; i < n; i++)
+  {
+    cin >> this_is[i];
+  }
+
+  sort(this_is.begin(), this_is.end());
+  float ans = 0,ap,bp,a1,b1;
+
+  if (n == 5)
+  {
+    ap = (this_is[0] + this_is[2]) / 2.0;
+    bp = (this_is[3] + this_is[4]) / 2.0;
+    a1 = (this_is[0] + this_is[1]) / 2.0;
+    b1 = (this_is[2] + this_is[4]) / 2.0;
+
+    ans = max((abs(ap - bp)), abs(a1 - b1));
+  }
+  else
+  {
+    ap = (this_is[0] + this_is[1]) / 2.0;
+    bp = (this_is[n - 1] + this_is[n - 2]) / 2.0;
+    ans = abs(ap - bp);
+  }
+
+  cout << "Case #" << pos << ": " << fixed << setprecision(6) << ans << endl;
+  return;
 }
 
 int main()
 {
-    int n;
-    cin >> n;
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL);
+  cout.tie(NULL);
 
-    vector<int> v(n);
-    vector<int> ans;
-    int sum = 0;
-    for (int i = 0; i < n; i++)
-    {
-        cin >> v[i];
-        sum += v[i];
-    }
+  int t;
+  cin >> t;
+  int pos = 1;
 
-    if (f(v, sum / 2, 0, 0, ans) == 0)
-    {
-        string p="";
-        p+="-";
-        p+=s;
-        cout << p << endl;
-        return 0;
-    }
-
-    set<int> s_set;
-
-    for (auto it : a)
-    {
-        s_set.insert(it);
-    }
-
-    vector<int> ans2;
-
-    for (int i = 0; i < n; i++)
-    {
-        if (s_set.find(v[i]) == s_set.end())
-        {
-            ans2.push_back(v[i]);
-        }
-        else
-        {
-            s_set.erase(v[i]);
-        }
-    }
-
-    sort(a.begin(), a.end());
-    sort(ans2.begin(), ans2.end());
-
-    vector<int> final_ans;
-
-    if (a[0] < ans2[0])
-    {
-        for (auto it : a)
-        {
-            final_ans.push_back(it);
-        }
-        for (auto it : ans2)
-        {
-            final_ans.push_back(it);
-        }
-    }
-    else
-    {
-        for (auto it : ans2)
-        {
-            final_ans.push_back(it);
-        }
-        for (auto it : a)
-        {
-            final_ans.push_back(it);
-        }
-    }
-
-    string interspersed;
-    int j = 0;
-
-    for (int i = 0; i < final_ans.size(); i++) {
-        if (i == 0) {
-            interspersed += to_string(final_ans[i]) + s[j%11]+",";
-            j++;
-        }
-        else if (i == final_ans.size() - 1) {
-            interspersed += s[j%11] + to_string(final_ans[i]);
-            j++;
-            interspersed += s.substr(j%11);
-        }
-        else {
-            interspersed += s[j%11] + to_string(final_ans[i]);
-            j++;
-            interspersed += s[j%11];
-            interspersed += ",";
-            j++;
-        }
-    }
-
-    cout << interspersed << endl;
+  while (t--)
+  {
+    solve(pos);
+    pos++;
+  }
+  return 0;
 }
